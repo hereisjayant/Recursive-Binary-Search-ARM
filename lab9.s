@@ -1,7 +1,7 @@
 .globl binary_search
 binary_search:
 //saving the registers
-  push {r4-r8, lr}
+  push {r4-r9, lr}
   sub  r6,r3,r2	  //r6 = endIndex - startIndex
   mov  r6,r6,LSR#1 //r6 = r6/2
   add  r6,r6,r2    //middleIndex = startIndex + (endIndex - startIndex)/2;
@@ -20,14 +20,14 @@ binary_search:
   mov PC,LR
 
 first_else_if:
-  ldr r8, [r0, r6, LSL #2]
-  cmp r1, r8
+  ldr r9, [r0, r6, LSL #2]
+  cmp r1, r9
   bne	second_else_if
   mov r0, r6
   b return
 
 second_else_if:
-  cmp r8, r1
+  cmp r9, r1
   bgt else
   add r6, r6, #1
   mov r2, r6
@@ -48,5 +48,5 @@ return:
   sub r4,r4,r4,LSL#1
   str r4,[r5,r5,LSL#2]
 //replenish the registers
-  pop   {r4-r8, lr}
+  pop   {r4-r9, lr}
   mov PC, LR //returns the value to main
